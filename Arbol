@@ -1,0 +1,35 @@
+package Ejercicios;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Arbol extends JPanel {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.GREEN);
+        dibujarArbol(g, 500, 700, -100, 200);
+    }
+
+    private void dibujarArbol(Graphics g, int x, int y, double angulo, double longitud) {
+        if (longitud < 5) return;
+
+
+        int nuevoX = (int) (x + longitud * Math.cos(Math.toRadians(angulo)));
+        int nuevoY = (int) (y + longitud * Math.sin(Math.toRadians(angulo)));
+
+        g.drawLine(x, y, nuevoX, nuevoY);
+
+
+        dibujarArbol(g, nuevoX, nuevoY, angulo - 20, longitud * 0.7);
+        dibujarArbol(g, nuevoX, nuevoY, angulo + 20, longitud * 0.7);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Fractal de Árbol");
+        Arbol panel = new Arbol();
+        frame.add(panel);
+        frame.setSize(800, 800);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
